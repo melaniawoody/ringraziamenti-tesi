@@ -20,14 +20,7 @@
       border-radius: 20px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
       max-width: 400px;
-      width: 90%;
       text-align: center;
-    }
-    label {
-      display: block;
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-      color: #333;
     }
     input {
       padding: 0.5rem;
@@ -55,18 +48,12 @@
       font-size: 1.1rem;
       font-weight: bold;
       color: #333;
-      opacity: 0;
-      transition: opacity 0.6s ease-in-out;
-    }
-    #output.show {
-      opacity: 1;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h2>Scrivi il tuo nome ✨</h2>
-    <label for="nome">Inserisci il tuo nome</label>
     <input type="text" id="nome" placeholder="Inserisci il tuo nome" />
     <br />
     <button onclick="mostraRingraziamento()">Accedi</button>
@@ -78,49 +65,30 @@
 
     // Carico i ringraziamenti dal file JSON esterno
     fetch('ringraziamenti.json')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Errore nel caricamento del file JSON");
-        }
-        return response.json();
-      })
+      .then(response => response.json())
       .then(data => {
         ringraziamenti = data;
       })
       .catch(error => {
         console.error("Errore nel caricamento dei ringraziamenti:", error);
-        document.getElementById("output").innerText =
-          "⚠️ Non riesco a caricare i ringraziamenti al momento.";
-        document.getElementById("output").classList.add("show");
       });
 
-    function mostraRingraziamento() {
-      const nomeInserito = document.getElementById("nome").value.trim().toLowerCase();
-      let trovato = null;
+      function mostraRingraziamento() {
+  const nomeInserito = document.getElementById("nome").value.trim().toLowerCase();
 
-      for (const nome in ringraziamenti) {
-        if (nome.toLowerCase() === nomeInserito) {
-          trovato = ringraziamenti[nome];
-          break;
-        }
-      }
-
-      const messaggio =
-        trovato ||
-        "Non ho trovato ringraziamenti per questo nome... ma ti ringrazio comunque di cuore! ❤️";
-
-      const output = document.getElementById("output");
-      output.classList.remove("show");
-      output.innerText = messaggio;
-      setTimeout(() => output.classList.add("show"), 10);
+  // Cerco la chiave corrispondente ignorando maiuscole
+  let trovato = null;
+  for (const nome in ringraziamenti) {
+    if (nome.toLowerCase() === nomeInserito) {
+      trovato = ringraziamenti[nome];
+      break;
     }
+  }
 
-    // Permette di premere "Enter" per avviare la ricerca
-    document.getElementById("nome").addEventListener("keypress", function(e) {
-      if (e.key === "Enter") {
-        mostraRingraziamento();
-      }
-    });
+  const messaggio = trovato || "Non ho trovato ringraziamenti per questo nome... ma ti ringrazio comunque di cuore! ❤️";
+  document.getElementById("output").innerText = messaggio;
+}
+
   </script>
 </body>
 </html>
