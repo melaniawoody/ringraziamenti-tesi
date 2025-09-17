@@ -9,11 +9,12 @@
       font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
-      align-items: flex-start; /* Non al centro, così può scorrere */
-      min-height: 100vh; /* Altezza minima, non bloccata */
+      align-items: flex-start; /* card parte dall’alto */
+      min-height: 100vh;
       background: linear-gradient(135deg, #f6d365, #fda085);
       margin: 0;
       padding: 1rem;
+      overflow-y: auto; /* la pagina può scorrere */
     }
     .container {
       background: white;
@@ -22,8 +23,6 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
       max-width: 500px;
       width: 100%;
-      max-height: 80vh; /* limite massimo sullo schermo */
-      overflow-y: auto; /* scroll interno */
       text-align: center;
     }
     input {
@@ -52,8 +51,8 @@
       font-size: 1.1rem;
       font-weight: bold;
       color: #333;
-      text-align: left; /* più leggibile per i testi lunghi */
-      white-space: pre-wrap; /* mantiene eventuali a capo */
+      text-align: left;
+      white-space: pre-wrap;
     }
   </style>
 </head>
